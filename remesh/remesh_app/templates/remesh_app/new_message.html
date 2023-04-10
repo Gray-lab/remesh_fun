@@ -1,7 +1,7 @@
 {% extends "remesh_app/base.html" %} 
 {% block content %}
 
-<p><a href="{% url 'remesh_app:conversation' conversation.id %}">Return to {{ conversation }}</a></p>
+<p>Return to <a href="{% url 'remesh_app:conversation' conversation.id %}">{{ conversation }}</a></p>
 
 <h3>Send a message:</h3>
 
