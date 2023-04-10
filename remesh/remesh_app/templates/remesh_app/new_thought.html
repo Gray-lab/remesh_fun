@@ -1,0 +1,14 @@
+{% extends "remesh_app/base.html" %} 
+{% block content %}
+
+<p>Return to <a href="{% url 'remesh_app:message' message.id %}">{{ message }}</a></p>
+
+<h3>Add a thought:</h3>
+
+<form action="{% url 'remesh_app:new_thought' message.id%}" method="post">
+    {% csrf_token %} 
+    {{ form.as_p }}
+    <button name="submit">Add thought</button>
+  </form>
+
+{% endblock content %}

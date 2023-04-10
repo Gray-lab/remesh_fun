@@ -1,0 +1,12 @@
+{% extends "remesh_app/base.html" %} 
+{% block content %}
+
+<h3>Add a new conversation:</h3>
+
+<form action="{% url 'remesh_app:new_conversation' %}" method="post">
+    {% csrf_token %} 
+    {{ form.as_p }}
+    <button name="submit">Start conversation</button>
+  </form>
+
+{% endblock content %}

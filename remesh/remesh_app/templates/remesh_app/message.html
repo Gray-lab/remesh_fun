@@ -1,0 +1,21 @@
+{% extends "remesh_app/base.html" %} 
+{% block content %}
+
+<h3>Message: {{message}}</h3>
+<p>{{message.sent_date|date:'M d, Y H:i' }}</p>
+<a href="{% url 'remesh_app:new_thought' message.id %}">Add a new thought</a>
+{% if thoughts %}
+<p>Here is a list of thoughts for this message.</p>
+<ul>
+  {% for thought in thoughts %}
+  <li>
+    <p>{{thought.text|linebreaks}}</p>
+    <p>{{thought.sent_date|date:'M d, Y H:i' }}</p>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No thoughts have been created yet!</p>
+{% endif %}
+
+{% endblock content %}

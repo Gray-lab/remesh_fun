@@ -1,0 +1,41 @@
+{% extends "remesh_app/base.html" %} 
+{% block content %}
+
+<h3>Conversation: {{conversation}}</h3>
+<p><a href="{% url 'remesh_app:new_message' conversation.id %}">Send a message</a></p>
+<p>
+  Here is a list of the current messages for this conversation. 
+  Click the message to see the date the message was sent and the full text of thoughts for that message.
+</p>
+
+<ul>
+  {% for message, thoughts in message_dict.values %}
+  <li>
+    <p>
+    <a href="{% url 'remesh_app:message' message.id%}">{{ message.text|linebreaks }}</a>
+    </p>
+    <p>Thoughts:</p>
+    <ul>
+      {% for thought in thoughts %}
+      <li>{{ thought }}</li>
+      {% empty %}
+      <p>No thoughts</p>
+      {% endfor %}
+    </ul>
+
+  </li>
+
+  {% empty %}
+  <p>No messages have been sent yet!</p>
+
+  {% endfor %}
+</ul>
+
+<hr>
+<p>Search Messages</p>
+<form action="{% url 'remesh_app:search' search_type='messages' conversation_id=conversation.id %}" method="get">
+    <input class="search" type="text" name="q" placeholder="Enter content">
+    <button class="search" action="submit">Search</button>
+</form>
+
+{% endblock content %}

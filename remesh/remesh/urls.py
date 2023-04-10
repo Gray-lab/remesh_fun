@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path('remesh/', include("remesh_app.urls")),
+    # We link to the remesh app using the empty string, since we will be using that as the root.
+    # This could also be done by creating a central app if this website becomes more complicated
+    path('', include("remesh_app.urls")),
     path('admin/', admin.site.urls),
 ]

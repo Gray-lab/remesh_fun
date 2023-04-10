@@ -1,0 +1,28 @@
+{% extends "remesh_app/base.html" %} 
+{% block content %}
+
+<h3>Search Results</h3>
+{% if results %} 
+<ul>
+{% for result in results %}
+<li>
+  {% if search_type == 'conversations' %}
+    <a href="{% url 'remesh_app:conversation' result.id %}">{{ result }}</a>
+  {% elif search_type == 'messages' %}
+    <a href="{% url 'remesh_app:message' result.id %}">{{ result }}</a>
+  {% endif %}
+</li>
+{% endfor %} 
+</ul>
+{% else %}
+<p>No results found.</p>
+{% endif %}
+<hr>
+<p>
+{% if search_type == 'conversations' %}
+  <a href="{% url 'remesh_app:conversations' %}">Back to conversations</a>
+{% elif search_type == 'messages' %}
+  <a href="{% url 'remesh_app:conversation' conversation_id %}">Back to conversation</a>
+{% endif %}
+</p>
+{% endblock content %}

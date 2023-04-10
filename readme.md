@@ -49,4 +49,11 @@ Note: This is not a production server and this app also lacks any user authetica
 
 
 ## Other notes
+An admin page has been created for ease of editing the models
+username = admin
+password = testadmin
+
+Note: I would never include login info in a readme for a production project! This is just for ease of use.
+Another note: That includes things like secret keys, which would typically be kept in a .env file that is not tracked on git, and would be specified as environment variables in a hosting environment like Heroku.
+
 

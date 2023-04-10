@@ -1,0 +1,31 @@
+{% extends "remesh_app/base.html" %} {% block content %}
+
+
+<h3>Conversations</h3>
+<a href="{% url 'remesh_app:new_conversation' %}">Start a new conversation!</a>
+<p>
+  Here is a list of the current conversations. Click on a conversation to see
+  the thoughts and messages!
+</p>
+<ul>
+  {% for conversation in conversations %}
+  <li>
+    <a href="{% url 'remesh_app:conversation' conversation.id %}">{{ conversation }}</a>
+
+    {% empty %}
+    <p>
+      No conversations have been created yet! Please start a new conversation.
+    </p>
+
+    {% endfor %}
+  </li>
+</ul>
+
+<hr>
+<p>Search Conversations</p>
+<form action="{% url 'remesh_app:search' search_type='conversations' %}" method="get">
+    <input class="search" type="text" name="q" placeholder="Enter full or partial title">
+    <button class="search" action="submit">Search</button>
+</form>
+
+{% endblock content %}
