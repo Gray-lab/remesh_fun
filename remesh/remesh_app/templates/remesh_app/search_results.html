@@ -22,7 +22,7 @@
 {% if search_type == 'conversations' %}
   <a href="{% url 'remesh_app:conversations' %}">Back to conversations</a>
 {% elif search_type == 'messages' %}
-  <a href="{% url 'remesh_app:conversation' conversation_id %}">Back to conversation</a>
+  <a href="{% url 'remesh_app:conversation' object_id %}">Back to conversation</a>
 {% endif %}
 </p>
 {% endblock content %}

@@ -33,7 +33,7 @@
 
 <hr>
 <p>Search Messages</p>
-<form action="{% url 'remesh_app:search' search_type='messages' conversation_id=conversation.id %}" method="get">
+<form action="{% url 'remesh_app:search' search_type='messages' object_id=conversation.id %}" method="get">
     <input class="search" type="text" name="q" placeholder="Enter content">
     <button class="search" action="submit">Search</button>
 </form>
