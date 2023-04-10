@@ -140,6 +140,7 @@ def search(request, search_type, object_id=None):
     """
     Searches for objects based on their type
     object_id is an optional argument for searches within an element of another model
+    Returns a search results
     """
     query = request.GET.get("q")
     context = {}
