@@ -2,3 +2,5 @@ asgiref==3.6.0
 backports.zoneinfo==0.2.1
 Django==4.2
 sqlparse==0.4.3pyth
+django-nose==1.4.7
+coverage==7.2.3
