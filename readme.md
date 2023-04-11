@@ -6,11 +6,12 @@
 Local environment requirements are included in the requirements.txt file. 
 
 ```
-Python==3.8+
 asgiref==3.6.0
 backports.zoneinfo==0.2.1
 Django==4.2
 sqlparse==0.4.3pyth
+django-nose==1.4.7
+coverage==7.2.3
 ```
 ---
 ## Recommended setup for local server
@@ -43,9 +44,17 @@ $ python manage.py runsever
 ```
 8. Navigate to localhost (128:0:0:1) to see the web app!
 
-Note: This is not a production server and this app also lacks any user authetication. 
+Note: This server should not be used in production!
 
 ## To run tests
+django-nose and coverage libraries were used to help with testing. If libraries were installed from the requirements.txt, these should already be installed. To run the tests:
+```
+$ python manage.py test
+```
+100% coverage was obtained in views and forms. Models.py also has good coverage, but the coverage library only detects the return and branch statement testing, thus incorrectly marking imports, etc as untested.
+
+An html document showing the coverage of various modules can be found in the /remesh/cover directory after tests have been run.
+This document is automatically created by coverage after the first time tests are run.
 
 
 ## Other notes
