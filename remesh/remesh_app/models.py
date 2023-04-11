@@ -4,8 +4,11 @@ from django.db import models
 class Conversation(models.Model):
     title = models.CharField(max_length=200)
     # I think it would be better to have a DateTimeField here,
-    # but the directions said "Start Date", so I followed them exactly.
+    # but the directions said "Start Date", so I followed them exactly
     start_date = models.DateField(auto_now_add=True)
+
+    def get_messages(self):
+        return self.message_set.order_by("-sent_datetime")
 
     def __str__(self) -> str:
         return self.title
@@ -15,7 +18,10 @@ class Message(models.Model):
     # It makes sense to cascade conversation deletion
     conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE)
     text = models.TextField()
-    sent_date = models.DateTimeField(auto_now_add=True)
+    sent_datetime = models.DateTimeField(auto_now_add=True)
+
+    def get_thoughts(self):
+        return self.thought_set.order_by("-sent_datetime")
 
     def __str__(self) -> str:
         return limit_len(self.text, 100)
@@ -27,7 +33,7 @@ class Thought(models.Model):
     # their models are updated in the future. They are different things after all.
     message = models.ForeignKey(Message, on_delete=models.CASCADE)
     text = models.TextField()
-    sent_date = models.DateTimeField(auto_now_add=True)
+    sent_datetime = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return limit_len(self.text, 100)

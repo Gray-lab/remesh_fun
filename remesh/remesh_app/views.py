@@ -27,13 +27,13 @@ def conversation(request, conversation_id):
     Returns a page for a conversation, showing the messages and shortened thoughts
     """
     convo = Conversation.objects.get(id=conversation_id)
-    messages = convo.message_set.order_by("-sent_date")
+    messages = convo.get_messages()
     message_dict = {}
     # Showing all the thoughts for each message is pretty inefficient.
     # It would be better to allow the thoughts to be loaded only in the message page.
     # Or dynamically by using some kind of accordion
     for message in messages:
-        thoughts = message.thought_set.order_by("-sent_date")
+        thoughts = message.get_thoughts()
         message_dict[str(message.id)] = (message, thoughts)
     return render(
         request,
@@ -47,7 +47,7 @@ def message(request, message_id):
     Returns a page for a message, showing the thoughts
     """
     message = Message.objects.get(id=message_id)
-    thoughts = message.thought_set.order_by("-sent_date")
+    thoughts = message.get_thoughts()
     return render(
         request,
         "remesh_app/message.html",
@@ -136,21 +136,21 @@ def new_thought(request, message_id):
 # initially I thought it would be better to separate them, but now I am
 # not sure. I kept this since it shows a different approach than I used
 # previously.
-def search(request, search_type, object_id=None):
+def search(request, search_type, conversation_id=None):
     """
     Searches for objects based on their type
     object_id is an optional argument for searches within an element of another model
-    Returns a search results
+    Returns a search result page
     """
     query = request.GET.get("q")
     context = {}
     if search_type == "messages":
-        convo = Conversation.objects.get(id=object_id)
+        convo = Conversation.objects.get(id=conversation_id)
         results = convo.message_set.filter(text__contains=query)
         context = {
             "results": results,
             "search_type": search_type,
-            "conversation_id": object_id,
+            "conversation_id": conversation_id,
         }
     elif search_type == "conversations":
         results = Conversation.objects.filter(title__contains=query)

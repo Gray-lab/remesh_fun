@@ -23,5 +23,5 @@ urlpatterns = [
     path("new_thought/<int:message_id>/", views.new_thought, name="new_thought"),
     # Search
     path("search/<str:search_type>/", views.search, name="search"),
-    path("search/<str:search_type>/<int:object_id>", views.search, name="search"),
+    path("search/<str:search_type>/<int:conversation_id>", views.search, name="search"),
 ]
