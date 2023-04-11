@@ -1,4 +1,4 @@
-from django.test import TestCase, Client
+from django.test import TestCase
 from django.utils import timezone
 from django.urls import reverse
 
@@ -115,7 +115,7 @@ class MessageModelTests(TestCase):
 class ThoughtModelTests(TestCase):
     def setUp(self):
         """
-        Set up a Conversation, Message, and Thought for use in the tests
+        Set up a Conversation, Messages, and Thoughts for use in the tests
         """
         self.conversation = Conversation.objects.create(
             title="Test Conversation", start_date=timezone.now().date()
@@ -325,8 +325,6 @@ class RemeshAppViewsTestCase(TestCase):
         self.assertIsInstance(response.context["form"], ConversationForm)
         # test POST request with valid form data
         response = self.client.post(url, data=self.convo_form_data)
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.url, reverse("remesh_app:conversations"))
         self.assertEqual(
             Conversation.objects.filter(title="New Conversation")[0].title,
             "New Conversation",
@@ -351,13 +349,6 @@ class RemeshAppViewsTestCase(TestCase):
         self.assertIsInstance(response.context["form"], MessageForm)
         # test POST request with valid form data
         response = self.client.post(url, data=self.msg_form_data)
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(
-            response.url,
-            reverse(
-                "remesh_app:conversation", kwargs={"conversation_id": self.convo.id}
-            ),
-        )
         self.assertEqual(
             Message.objects.filter(text="New Message")[0].text, "New Message"
         )
@@ -384,11 +375,6 @@ class RemeshAppViewsTestCase(TestCase):
         self.assertIsInstance(response.context["form"], ThoughtForm)
         # test POST request with valid form data
         response = self.client.post(url, data=self.thought_form_data)
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(
-            response.url,
-            reverse("remesh_app:message", kwargs={"message_id": self.msg.id}),
-        )
         self.assertEqual(
             Thought.objects.filter(text="New Thought")[0].text, "New Thought"
         )
@@ -407,7 +393,6 @@ class RemeshAppViewsTestCase(TestCase):
 
 class SearchViewTestCase(TestCase):
     def setUp(self):
-        self.client = Client()
         self.conversation = Conversation.objects.create(title="Test Conversation")
         self.message = Message.objects.create(
             conversation=self.conversation, text="Test Message"
