@@ -2,17 +2,26 @@
 {% block content %}
 
 <h3>Conversation: {{conversation}}</h3>
-<p><a href="{% url 'remesh_app:new_message' conversation.id %}">Send a message</a></p>
+<p>Started on {{conversation.start_date|date:'M d, Y' }}</p>
 <p>
-  Here is a list of the current messages for this conversation. 
-  Click the message to see the date the message was sent and the full text of thoughts for that message.
+  <a href="{% url 'remesh_app:new_message' conversation.id %}"
+    >Send a message</a
+  >
+</p>
+{% if message_dict %}
+<p>
+  Here is a list of the current messages for this conversation. Click the
+  message to see the date the message was sent and the full text of thoughts for
+  that message.
 </p>
 
 <ul>
   {% for message, thoughts in message_dict.values %}
   <li>
     <p>
-    <a href="{% url 'remesh_app:message' message.id%}">{{ message.text|linebreaks }}</a>
+      <a href="{% url 'remesh_app:message' message.id%}"
+        >{{ message.text|linebreaks }}</a
+      >
     </p>
     <p>Thoughts:</p>
     <ul>
@@ -22,20 +31,21 @@
       <p>No thoughts</p>
       {% endfor %}
     </ul>
-
   </li>
-
-  {% empty %}
-  <p>No messages have been sent yet!</p>
-
   {% endfor %}
 </ul>
+{% else %}
+<p>No messages have been sent yet.</p>
+{% endif %}
 
-<hr>
+<hr />
 <p>Search Messages</p>
-<form action="{% url 'remesh_app:search' search_type='messages' object_id=conversation.id %}" method="get">
-    <input class="search" type="text" name="q" placeholder="Enter content">
-    <button class="search" action="submit">Search</button>
+<form
+  action="{% url 'remesh_app:search' search_type='messages' conversation_id=conversation.id %}"
+  method="get"
+>
+  <input class="search" type="text" name="q" placeholder="Enter content" />
+  <button class="search" action="submit">Search</button>
 </form>
 
 {% endblock content %}

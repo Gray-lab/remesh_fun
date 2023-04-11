@@ -2,7 +2,7 @@
 {% block content %}
 
 <h3>Message: {{message}}</h3>
-<p>{{message.sent_date|date:'M d, Y H:i' }}</p>
+<p>{{message.sent_datetime|date:'M d, Y H:i' }}</p>
 <a href="{% url 'remesh_app:new_thought' message.id %}">Add a new thought</a>
 {% if thoughts %}
 <p>Here is a list of thoughts for this message.</p>
@@ -10,7 +10,7 @@
   {% for thought in thoughts %}
   <li>
     <p>{{thought.text|linebreaks}}</p>
-    <p>{{thought.sent_date|date:'M d, Y H:i' }}</p>
+    <p>{{thought.sent_datetime|date:'M d, Y H:i' }}</p>
   </li>
   {% endfor %}
 </ul>
