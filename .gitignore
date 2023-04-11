@@ -1,4 +1,6 @@
 .venv_rm/
+.vscode
+.coverage
 *.pyc
 .env
 
