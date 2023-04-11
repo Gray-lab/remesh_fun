@@ -14,11 +14,12 @@ coverage==7.2.3
 ```
 ---
 ## Recommended setup for local server
-For running a local instance of the project, the following steps are recommended. A unix based operating system is assumed. The project was completed on, and the commands were tested on, an Ubuntu 20.04 instance running in WSL. 
+ A linux operating system is assumed for these directions. The project was completed on, and the commands were tested on, an Ubuntu 20.04 instance running in WSL. 
 
 Strictly speaking, it is not required that a virtual environment be used - but it is good practice.
 
 1. Download or clone the repository and navigate to the top directory
+
 2. Ensure that python version 3.8.10 (or higher) is installed: 
 ```
 $ python3 --version
@@ -35,14 +36,20 @@ $ pip install -r requirements.txt
 ```
 5. Navigate into the /remesh_fun/remesh directory. In this directory should be the file manage.py
 ```
-user@computer~/remesh_fun/remesh$ ls
+$ cd remesh
+$ ls
 db.sqlite3  manage.py  remesh  remesh_app
 ```
 6. Run the Django development server
 ```
-$ python manage.py runsever
+$ python manage.py runserver
 ```
-8. Navigate to localhost (http://127.0.0.1:8000/ by default) to see the web app!
+7. Navigate to localhost (http://127.0.0.1:8000/ by default) to see the web app!
+
+8. If the default port 8000 is busy, you can specify another port as an argument
+```
+$ python manage.py runserver 8001
+```
 
 Note: The Django development server should not be used in production!
 
@@ -64,6 +71,7 @@ This document is automatically created by coverage after the first time tests ar
 An admin page has been created for ease of editing the models
 
 ```
+url: 127.0.0.1:8000/admin
 username = admin
 password = testadmin
 ```
