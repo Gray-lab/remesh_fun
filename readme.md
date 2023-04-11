@@ -60,7 +60,9 @@ django-nose and coverage libraries were used to help with testing coverage. If l
 ```
 $ python manage.py test
 ```
-100% coverage was obtained in views and forms. Models.py also has good coverage, but the coverage library only detects the return and branch statement in models.py, thus incorrectly marking imports, etc as untested. 
+100% coverage was obtained in views and forms. models.py also has good coverage, but the coverage library only detects the return and branch statement in models.py, thus incorrectly marking imports, etc as untested. 
+
+Front end testing is performed with the view tests, using assertContains() on parts of the response content to check that correct text is being sent to the browser.
 
 An html document showing the coverage of various modules can be found in the /remesh/cover directory after tests have been run.
 This document is automatically created by coverage after the first time tests are run.
